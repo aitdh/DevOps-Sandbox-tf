@@ -8,8 +8,11 @@ variable "devops_sb_resource_group_name_prefix" {
     description = "Prefix of the resource group that's combined with a random ID so name is unique in your Azure Subscription"
 }
 
-variable "vnet_name" {
-    default = "vnet"
+variable "app_name" {
+    type = string
+}
+
+variable "environment" {
     type = string
 }
 
