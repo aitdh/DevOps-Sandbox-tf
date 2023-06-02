@@ -2,4 +2,4 @@
 # Common Variables #
 ####################
 environment = "Sandbox"
-app_name    = "test"
+app_name    = "dummyapp"
