@@ -1,7 +1,7 @@
 resource "azurerm_virtual_network" "vnet" {
-  name                = "${var.vnet_name}_${replace(var.ARM_RG_NAME," ","_")}"
+  name                = "vent_${replace(var.ARM_RG_NAME,"-","_")}"
   location            = var.devops_sb_resource_group_location
-  resource_group_name = var.ARM_RG_ID
+  resource_group_name = var.ARM_RG_NAME
   address_space       = ["10.0.0.0/16"]
   dns_servers         = ["10.0.0.4", "10.0.0.5"]
 #  vnet_subnet_id      = data.azurerm_subnet.aks_sbn_data.id
