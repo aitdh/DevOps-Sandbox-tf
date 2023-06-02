@@ -13,6 +13,6 @@ resource "azurerm_linux_web_app" "web-app" {
   service_plan_id     = azurerm_service_plan.service-plan.id
 
   site_config {
-    linux_fx_version = "DOTNETCORE|6.0"
+    linux_fx_version = "DOTNETCORE"
   }
 }
