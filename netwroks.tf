@@ -1,5 +1,5 @@
 resource "azurerm_virtual_network" "vnet" {
-  name                = "vnet-var.ARM_RG_NAME"
+  name                = "${var.vnet_namevar}.${ARM_RG_NAME}"
   location            = var.devops_sb_resource_group_location
   resource_group_name = var.ARM_RG_NAME
   address_space       = ["10.0.0.0/16"]
