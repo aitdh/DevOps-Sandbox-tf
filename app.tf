@@ -13,7 +13,7 @@ resource "azurerm_linux_web_app" "web-app" {
   service_plan_id     = azurerm_service_plan.service-plan.id
 
   site_config {
-    dotnet_framework_version = "v6.0"
+    linux_fx_version = "DOTNET|6.0"
   }
 
   tags = {
