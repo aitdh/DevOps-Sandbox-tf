@@ -16,6 +16,14 @@ variable "environment" {
     type = string
 }
 
+variable "private_network_name" {
+    type = string
+}
+
+variable "private_dns_link_name" {
+    type = string
+}
+
 variable "ARM_TENANT_ID" {
     type = string
 }
