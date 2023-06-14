@@ -17,7 +17,6 @@ resource "azurerm_linux_web_app" "web-app" {
   }
 
   tags = {
-    description = var.description
     environment = var.environment
   }
 }
