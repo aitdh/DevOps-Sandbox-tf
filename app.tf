@@ -12,8 +12,12 @@ resource "azurerm_linux_web_app" "web-app" {
   location            = var.devops_sb_resource_group_location
   service_plan_id     = azurerm_service_plan.service-plan.id
 
-  site_config {
-    linux_fx_version = "DOTNET|6.0"
+  site_config { 
+    minimum_tls_version = "1.2"
+    always_on = false
+    application_stack {
+      dotnet_version = "6.0"
+    }
   }
 
   tags = {
