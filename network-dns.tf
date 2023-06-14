@@ -1,6 +1,6 @@
 # Create a Private DNS Zone
 resource "azurerm_private_dns_zone" "db-private-dns" {
-  name = "${var.devops_sb_resource_group_location}-${var.environment}-${var.private_network_name}"
+  name = "${var.private_network_name}.azconfig.io"
   resource_group_name = var.ARM_RG_NAME
 }
 # Link the Private DNS Zone with the VNET
