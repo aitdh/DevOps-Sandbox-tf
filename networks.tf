@@ -6,10 +6,10 @@ resource "azurerm_virtual_network" "vnet" {
   dns_servers         = ["10.0.0.4", "10.0.0.5"]
 #  vnet_subnet_id      = data.azurerm_subnet.aks_sbn_data.id
 
-   subnet {
-     name           = "snet-appcs"
-     address_prefix = "10.0.1.0/24"
-   }
+  #  subnet {
+  #    name           = "snet-appcs"
+  #    address_prefix = "10.0.1.0/24"
+  #  }
 
 #   subnet {
 #     name           = "subnet2"
@@ -20,4 +20,11 @@ resource "azurerm_virtual_network" "vnet" {
   tags = {
     environment = "var.environment"
   }
+}
+
+resource "azurerm_subnet" "snet" {
+  name                 = "vnet_${replace(var.ARM_RG_NAME,"-","_")}"
+  resource_group_name  = var.ARM_RG_NAME
+  virtual_network_name = azurerm_virtual_network.vnet.name
+  address_prefixes     = ["10.0.1.0/24"]
 }
