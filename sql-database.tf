@@ -12,10 +12,10 @@ resource "azurerm_mssql_database" "dummy_sql_db" {
   server_id      = azurerm_mssql_server.dummy_sql_db_server.id
   collation      = "SQL_Latin1_General_CP1_CI_AS"
   license_type   = "LicenseIncluded"
-  max_size_gb    = 4
-  read_scale     = true
-  sku_name       = "S0"
-  zone_redundant = true
+  max_size_gb    = 2
+  read_scale     = false
+  sku_name       = "Basic"
+  zone_redundant = false
 
   tags = {
     environment = "var.environment"
