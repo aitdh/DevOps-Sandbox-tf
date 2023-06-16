@@ -13,6 +13,7 @@ resource "azurerm_private_dns_zone_virtual_network_link" "db_private_dns_link" {
 
 resource "azurerm_private_endpoint" "db_private_endpoint" {
   name                = "${var.devops_sb_resource_group_location}-${var.environment}-db-private-endpoint"
+  resource_group_name = var.ARM_RG_NAME
   location            = var.devops_sb_resource_group_location
   subnet_id           = azurerm_subnet.snet.id
 
