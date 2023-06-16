@@ -9,7 +9,7 @@ resource "azurerm_mssql_server" "dummy_sql_db_server" {
 
 resource "azurerm_mssql_database" "dummy_sql_db_server" {
   name           = "${var.devops_sb_resource_group_location}-${var.environment}-sql-server"
-  server_id      = azurerm_mssql_server.dummy-sql-db_server.id
+  server_id      = azurerm_mssql_server.dummy_sql_db_server.id
   collation      = "SQL_Latin1_General_CP1_CI_AS"
   license_type   = "LicenseIncluded"
   max_size_gb    = 4
