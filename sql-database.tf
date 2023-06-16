@@ -1,5 +1,5 @@
 resource "azurerm_mssql_server" "dummy_sql_db_server" {
-  name                         = "dummy-sql-server"
+  name                         = "devops-sandbox-sql-server-dh"
   resource_group_name          = var.ARM_RG_NAME
   location                     = var.devops_sb_resource_group_location
   version                      = "12.0"
@@ -8,7 +8,7 @@ resource "azurerm_mssql_server" "dummy_sql_db_server" {
 }
 
 resource "azurerm_mssql_database" "dummy_sql_db" {
-  name           = "dummy-sqldb"
+  name           = "devops-sandbox-sqldb-dh"
   server_id      = azurerm_mssql_server.dummy_sql_db_server.id
   collation      = "SQL_Latin1_General_CP1_CI_AS"
   license_type   = "LicenseIncluded"

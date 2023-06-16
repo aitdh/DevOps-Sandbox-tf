@@ -23,7 +23,7 @@ resource "azurerm_virtual_network" "vnet" {
 }
 
 resource "azurerm_subnet" "snet" {
-  name                 = "vnet_${replace(var.ARM_RG_NAME,"-","_")}"
+  name                 = "snet-devops-sandbox"
   resource_group_name  = var.ARM_RG_NAME
   virtual_network_name = azurerm_virtual_network.vnet.name
   address_prefixes     = ["10.0.1.0/24"]
