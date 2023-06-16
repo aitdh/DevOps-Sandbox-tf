@@ -24,7 +24,7 @@ resource "azurerm_private_endpoint" "db_private_endpoint" {
   }
 
   private_dns_zone_group {
-    name                 = ""${var.devops_sb_resource_group_location}-${var.environment}-db-dns-zone-group"
+    name                 = "${var.devops_sb_resource_group_location}-${var.environment}-db-dns-zone-group"
     private_dns_zone_ids = [azurerm_private_dns_zone.db_private_dns.id]
   }
 }
