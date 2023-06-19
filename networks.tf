@@ -24,5 +24,5 @@ resource "azurerm_subnet" "snet" {
   name                 = "snet_devops_sandbox"
   resource_group_name  = var.ARM_RG_NAME
   virtual_network_name = azurerm_virtual_network.vnet.name
-  address_prefixes     = ["10.0.0.2/24"]
+  address_prefixes     = ["10.0.1.0/24"]
 }
