@@ -32,4 +32,12 @@ resource "azurerm_subnet" "webapp_snet" {
   resource_group_name  = var.ARM_RG_NAME
   virtual_network_name = azurerm_virtual_network.vnet.name
   address_prefixes     = ["10.0.2.0/24"]
+
+  delegation {
+    name = "webapp_snet_delegation"
+
+    service_delegation {
+      name    = "Microsoft.Web/serverFarms"
+    }
+  }
 }
