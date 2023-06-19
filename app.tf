@@ -24,3 +24,8 @@ resource "azurerm_linux_web_app" "web-app" {
     environment = var.environment
   }
 }
+
+resource "azurerm_app_service_virtual_network_swift_connection" "dummy_app_net_switf" {
+  app_service_id = azurerm_linux_web_app.web-app.id
+  subnet_id      = azurerm_subnet.webapp_snet.id
+}
