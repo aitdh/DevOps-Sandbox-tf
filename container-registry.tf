@@ -13,9 +13,30 @@ resource "azurerm_container_registry" "acr" {
   }
 }
 
-resource "azurerm_user_assigned_identity" "acr_mngd_id" {
-  resource_group_name = var.ARM_RG_NAME
-  location            = var.devops_sb_resource_group_location
+resource "azurerm_role_definition" "role_acr_contributor" {
+  name        = "Custom AcrContributor ${var.environment}"
+  scope       = azurerm_container_registry.acr.id
+  description = "Allows users to create Azure Container Registry repositories."
 
-  name = "dh-devops-registry-uai"
+  permissions {
+    actions = [
+      "Microsoft.ContainerRegistry/registries/listCredentials/action",
+      "Microsoft.ContainerRegistry/registries/write",
+      "Microsoft.ContainerRegistry/registries/pull/read",
+      "Microsoft.ContainerRegistry/registries/push/write",
+      "Microsoft.ContainerRegistry/registries/artifacts/delete"
+    ]
+  }
+  depends_on = [azurerm_container_registry.acr]
+}
+
+data "azurerm_azuread_service_principal" "sp" {
+        application_id  = "${secret.SP_APPLICATION_ID}"
+}
+
+resource "azurerm_role_assignment" "role_acr_contributor_assign" {
+  scope                = azurerm_container_registry.acr.id
+  role_definition_name = "Custom AcrContributor ${var.environment}"
+  principal_id         = data.azurerm_azuread_service_principal.sp.id
+  depends_on           = [azurerm_role_definition.role_acr_contributor]
 }
