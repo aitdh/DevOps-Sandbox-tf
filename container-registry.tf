@@ -53,7 +53,7 @@ data "azuread_service_principal" "sp" {
 resource "azuread_service_principal" "acr_sp" {
   application_id               = azurerm_container_registry.acr.id
   app_role_assignment_required = false
-  owners                       = data.azuread_service_principal.sp.id
+  owners                       = [data.azuread_service_principal.sp.id]
 }
 
 # #https://learn.microsoft.com/en-us/azure/role-based-access-control/built-in-roles?WT.mc_id=AZ-MVP-5004151
