@@ -54,7 +54,7 @@ data "azuread_service_principal" "sp" {
 resource "azurerm_role_assignment" "role_acr_contributor_assign" {
   scope                = azurerm_container_registry.acr.id
   # role_definition_name = "Custom AcrContributor ${var.environment}"
-  role_definition_name = "Contributor"
+  role_definition_name = "AcrImageSigner"
   principal_id         = data.azuread_service_principal.sp.id
   # depends_on           = [azurerm_role_definition.role_acr_contributor]
 }
