@@ -30,13 +30,13 @@ resource "azurerm_role_definition" "role_acr_contributor" {
   depends_on = [azurerm_container_registry.acr]
 }
 
-data "azurerm_azuread_service_principal" "sp" {
-        application_id  = "${secret.SP_APPLICATION_ID}"
-}
+# data "azurerm_azuread_service_principal" "sp" {
+#         application_id  = "${secret.SP_APPLICATION_ID}"
+# }
 
 resource "azurerm_role_assignment" "role_acr_contributor_assign" {
   scope                = azurerm_container_registry.acr.id
   role_definition_name = "Custom AcrContributor ${var.environment}"
-  principal_id         = data.azurerm_azuread_service_principal.sp.id
+  principal_id         = azurerm_container_registry.acr.identity[0].principal_id
   depends_on           = [azurerm_role_definition.role_acr_contributor]
 }
