@@ -50,10 +50,11 @@ data "azuread_service_principal" "sp" {
         application_id  = var.SP_APPLICATION_ID
 }
 
+#https://learn.microsoft.com/en-us/azure/role-based-access-control/built-in-roles?WT.mc_id=AZ-MVP-5004151
 resource "azurerm_role_assignment" "role_acr_contributor_assign" {
   scope                = azurerm_container_registry.acr.id
   # role_definition_name = "Custom AcrContributor ${var.environment}"
-  role_definition_name = "*"
+  role_definition_name = "Contributor"
   principal_id         = data.azuread_service_principal.sp.id
   # depends_on           = [azurerm_role_definition.role_acr_contributor]
 }
