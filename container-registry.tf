@@ -47,7 +47,7 @@ resource "azurerm_role_definition" "role_acr_contributor" {
 }
 
 data "azuread_service_principal" "sp" {
-        application_id  = "${secret.SP_APPLICATION_ID}"
+        application_id  = var.SP_APPLICATION_ID
 }
 
 resource "azurerm_role_assignment" "role_acr_contributor_assign" {
