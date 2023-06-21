@@ -20,6 +20,15 @@ resource "azurerm_user_assigned_identity" "acr_mngd_id" {
   name = "dh-devops-registry-uai"
 }
 
+resource "azuread_application_federated_identity_credential" "example" {
+  application_object_id = azurerm_user_assigned_identity.acr_mngd_id.object_id
+  display_name          = "Image Build"
+  description           = "Builds Docker images and pushes them to our custom registry"
+  audiences             = ["api://AzureADTokenExchange"]
+  issuer                = "https://token.actions.githubusercontent.com"
+  subject               = "repo:aitdh/DevOps-Sample-App"
+}
+
 # resource "azurerm_role_definition" "role_acr_contributor" {
 #   name        = "Custom AcrContributor ${var.environment}"
 #   scope       = azurerm_container_registry.acr.id
