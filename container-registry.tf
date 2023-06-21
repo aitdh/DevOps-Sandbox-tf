@@ -51,7 +51,7 @@ data "azuread_service_principal" "sp" {
 }
 
 resource "azuread_service_principal" "acr_sp" {
-  application_id               = azurerm_container_registry.acr.id
+  application_id               = azurerm_container_registry.acr.application_id
   app_role_assignment_required = false
   owners                       = [data.azuread_service_principal.sp.id]
 }
