@@ -53,6 +53,6 @@ data "azuread_service_principal" "sp" {
 resource "azurerm_role_assignment" "role_acr_contributor_assign" {
   scope                = azurerm_container_registry.acr.id
   role_definition_name = "Custom AcrContributor ${var.environment}"
-  principal_id         = azurerm_container_registry.acr.identity[0].principal_id
+  principal_id         = azuread_service_principal.sp.principal_id
   depends_on           = [azurerm_role_definition.role_acr_contributor]
 }
