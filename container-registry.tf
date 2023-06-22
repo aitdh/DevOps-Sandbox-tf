@@ -46,9 +46,9 @@ resource "azurerm_role_definition" "role_acr_contributor" {
   depends_on = [azurerm_container_registry.acr]
 }
 
-data "azuread_service_principal" "sp" {
-        application_id  = var.SP_APPLICATION_ID
-}
+# data "azuread_service_principal" "sp" {
+#         application_id  = var.SP_APPLICATION_ID
+# }
 
 # resource "azuread_service_principal" "acr_sp" {
 #   application_id               = azurerm_container_registry.acr.id
