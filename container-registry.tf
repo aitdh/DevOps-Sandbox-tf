@@ -46,15 +46,15 @@ resource "azurerm_container_registry" "acr" {
 #   depends_on = [azurerm_container_registry.acr]
 # }
 
-# data "azuread_service_principal" "sp" {
-#         application_id  = var.SP_APPLICATION_ID
-# }
-
-resource "azuread_service_principal" "acr_sp" {
-  application_id               = azurerm_container_registry.acr.id
-  app_role_assignment_required = false
-  # owners                       = [data.azuread_service_principal.sp.id]
+data "azuread_service_principal" "sp" {
+        application_id  = var.SP_APPLICATION_ID
 }
+
+# resource "azuread_service_principal" "acr_sp" {
+#   application_id               = azurerm_container_registry.acr.id
+#   app_role_assignment_required = false
+#   # owners                       = [data.azuread_service_principal.sp.id]
+# }
 
 #https://learn.microsoft.com/en-us/azure/role-based-access-control/built-in-roles?WT.mc_id=AZ-MVP-5004151
 resource "azurerm_role_assignment" "role_acr_contributor_assign" {
