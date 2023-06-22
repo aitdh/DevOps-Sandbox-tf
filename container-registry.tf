@@ -46,9 +46,9 @@ resource "azurerm_container_registry" "acr" {
 #   depends_on = [azurerm_container_registry.acr]
 # }
 
-data "azuread_service_principal" "sp" {
-        application_id  = var.SP_APPLICATION_ID
-}
+# data "azuread_service_principal" "sp" {
+#         application_id  = var.SP_APPLICATION_ID
+# }
 
 # resource "azuread_service_principal" "acr_sp" {
 #   application_id               = azurerm_container_registry.acr.id
@@ -58,9 +58,10 @@ data "azuread_service_principal" "sp" {
 
 #https://learn.microsoft.com/en-us/azure/role-based-access-control/built-in-roles?WT.mc_id=AZ-MVP-5004151
 resource "azurerm_role_assignment" "role_acr_contributor_assign" {
-  scope                = azurerm_container_registry.acr.id
+  # scope                = azurerm_container_registry.acr.id
   # role_definition_name = "Custom AcrContributor ${var.environment}"
   role_definition_name = "AcrImageSigner"
-  principal_id         = azuread_service_principal.acr_sp.id
+  # principal_id         = azuread_service_principal.acr_sp.id
+  application_id          =azurerm_container_registry.acr.id
   # depends_on           = [azurerm_role_definition.role_acr_contributor]
 }
