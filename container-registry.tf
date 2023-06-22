@@ -46,9 +46,9 @@ resource "azurerm_container_registry" "acr" {
 #   depends_on = [azurerm_container_registry.acr]
 # }
 
-# data "azuread_service_principal" "sp" {
-#         application_id  = var.SP_APPLICATION_ID
-# }
+data "azuread_service_principal" "sp" {
+        application_id  = var.SP_APPLICATION_ID
+}
 
 # resource "azuread_service_principal" "acr_sp" {
 #   application_id               = azurerm_container_registry.acr.id
@@ -61,7 +61,6 @@ resource "azurerm_role_assignment" "role_acr_contributor_assign" {
   scope                = "/subscriptions/a1e9be7c-6461-4d60-8a98-c9351ddbe116/resourceGroups/DevOps-Sandbox/providers/Microsoft.ContainerRegistry/registries/dhacrdevopssandbox"
   # role_definition_name = "Custom AcrContributor ${var.environment}"
   role_definition_name = "AcrImageSigner"
-  # principal_id         = azuread_service_principal.acr_sp.id
-  application_id          = var.SP_APPLICATION_ID
+  principal_id         = azuread_service_principal.acr_sp.id
   # depends_on           = [azurerm_role_definition.role_acr_contributor]
 }
