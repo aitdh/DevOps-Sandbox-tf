@@ -29,22 +29,22 @@ resource "azurerm_container_registry" "acr" {
 #   subject               = "repo:aitdh/DevOps-Sample-App"
 # }
 
-resource "azurerm_role_definition" "role_acr_contributor" {
-  name        = "Custom AcrContributor ${var.environment}"
-  scope       = azurerm_container_registry.acr.id
-  description = "Allows users to create Azure Container Registry repositories."
+# resource "azurerm_role_definition" "role_acr_contributor" {
+#   name        = "Custom AcrContributor ${var.environment}"
+#   scope       = azurerm_container_registry.acr.id
+#   description = "Allows users to create Azure Container Registry repositories."
 
-  permissions {
-    actions = [
-      "Microsoft.ContainerRegistry/registries/listCredentials/action",
-      "Microsoft.ContainerRegistry/registries/write",
-      "Microsoft.ContainerRegistry/registries/pull/read",
-      "Microsoft.ContainerRegistry/registries/push/write",
-      "Microsoft.ContainerRegistry/registries/artifacts/delete"
-    ]
-  }
-  depends_on = [azurerm_container_registry.acr]
-}
+#   permissions {
+#     actions = [
+#       "Microsoft.ContainerRegistry/registries/listCredentials/action",
+#       "Microsoft.ContainerRegistry/registries/write",
+#       "Microsoft.ContainerRegistry/registries/pull/read",
+#       "Microsoft.ContainerRegistry/registries/push/write",
+#       "Microsoft.ContainerRegistry/registries/artifacts/delete"
+#     ]
+#   }
+#   depends_on = [azurerm_container_registry.acr]
+# }
 
 # data "azuread_service_principal" "sp" {
 #         application_id  = var.SP_APPLICATION_ID
@@ -59,8 +59,8 @@ resource "azurerm_role_definition" "role_acr_contributor" {
 #https://learn.microsoft.com/en-us/azure/role-based-access-control/built-in-roles?WT.mc_id=AZ-MVP-5004151
 resource "azurerm_role_assignment" "role_acr_contributor_assign" {
   scope                = "/subscriptions/a1e9be7c-6461-4d60-8a98-c9351ddbe116/resourceGroups/DevOps-Sandbox/providers/Microsoft.ContainerRegistry/registries/dhacrdevopssandbox"
-  role_definition_name = "Custom AcrContributor ${var.environment}"
-  # role_definition_name = "AcrImageSigner"
+  # role_definition_name = "Custom AcrContributor ${var.environment}"
+  role_definition_name = "AcrImageSigner"
   principal_id         = var.SP_APPLICATION_ID
   # depends_on           = [azurerm_role_definition.role_acr_contributor]
 }
