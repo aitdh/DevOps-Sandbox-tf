@@ -58,7 +58,7 @@ resource "azurerm_container_registry" "acr" {
 
 #https://learn.microsoft.com/en-us/azure/role-based-access-control/built-in-roles?WT.mc_id=AZ-MVP-5004151
 resource "azurerm_role_assignment" "role_acr_contributor_assign" {
-  scope                = "/subscriptions/a1e9be7c-6461-4d60-8a98-c9351ddbe116/resourceGroups/DevOps-Sandbox/providers/Microsoft.ContainerRegistry/registries/dhacrdevopssandbox"
+  scope                = azurerm_container_registry.acr.id
   # role_definition_name = "Custom AcrContributor ${var.environment}"
   role_definition_name = "AcrImageSigner"
   principal_id         = var.SP_APPLICATION_ID
