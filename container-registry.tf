@@ -29,31 +29,44 @@ resource "azurerm_container_registry" "acr" {
 #   subject               = "repo:aitdh/DevOps-Sample-App"
 # }
 
-resource "azurerm_role_definition" "role_acr_contributor" {
-  name        = "Custom AcrContributor ${var.environment}"
-  scope       = azurerm_container_registry.acr.id
-  description = "Allows users to create Azure Container Registry repositories."
+# resource "azurerm_role_definition" "role_acr_contributor" {
+#   name        = "Custom AcrContributor ${var.environment}"
+#   scope       = azurerm_container_registry.acr.id
+#   description = "Allows users to create Azure Container Registry repositories."
 
-  permissions {
-    actions = [
-      "Microsoft.ContainerRegistry/registries/listCredentials/action",
-      "Microsoft.ContainerRegistry/registries/write",
-      "Microsoft.ContainerRegistry/registries/pull/read",
-      "Microsoft.ContainerRegistry/registries/push/write",
-      "Microsoft.ContainerRegistry/registries/artifacts/delete"
-    ]
-  }
-  depends_on = [azurerm_container_registry.acr]
-}
+#   permissions {
+#     actions = [
+#       "Microsoft.ContainerRegistry/registries/listCredentials/action",
+#       "Microsoft.ContainerRegistry/registries/write",
+#       "Microsoft.ContainerRegistry/registries/pull/read",
+#       "Microsoft.ContainerRegistry/registries/push/write",
+#       "Microsoft.ContainerRegistry/registries/artifacts/delete"
+#     ]
+#   }
+#   depends_on = [azurerm_container_registry.acr]
+# }
 
 # data "azuread_service_principal" "sp" {
 #         application_id  = var.SP_APPLICATION_ID
 # }
 
+resource "azuread_application" "acr_sp" {
+  name = "acr_sp"
+}
+
 resource "azuread_service_principal" "acr_sp" {
-  application_id               = azurerm_container_registry.acr.id
-  app_role_assignment_required = false
-  # owners                       = [data.azuread_service_principal.sp.id]
+  application_id = "${azuread_application.acr_sp.application_id}"
+}
+
+resource "random_string" "password" {
+  length = 16
+  special = true
+  override_special = "/@\" "
+}
+
+output "client_secret" {
+  value = "${random_string.password.result}"
+  description = "Client Secret"
 }
 
 #https://learn.microsoft.com/en-us/azure/role-based-access-control/built-in-roles?WT.mc_id=AZ-MVP-5004151
@@ -61,6 +74,6 @@ resource "azurerm_role_assignment" "role_acr_contributor_assign" {
   scope                = azurerm_container_registry.acr.id
   # role_definition_name = "Custom AcrContributor ${var.environment}"
   role_definition_name = "AcrImageSigner"
-  principal_id         = var.SP_APPLICATION_ID
+  principal_id         = "${azuread_service_principal.acr_sp.id}"
   # depends_on           = [azurerm_role_definition.role_acr_contributor]
 }
