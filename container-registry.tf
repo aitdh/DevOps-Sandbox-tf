@@ -51,7 +51,7 @@ resource "azurerm_container_registry" "acr" {
 # }
 
 resource "azuread_application" "acr_sp" {
-  name = "acr_sp"
+  display_name = "acr_sp"
 }
 
 resource "azuread_service_principal" "acr_sp" {
