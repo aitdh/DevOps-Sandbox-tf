@@ -55,3 +55,9 @@ variable "ARM_RG_ID" {
 variable "SP_ACR_OBJ_ID" {
     type = string
 }
+
+variable "node_count" {
+  type        = number
+  description = "The initial quantity of nodes for the node pool."
+  default     = 3
+}
