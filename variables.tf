@@ -51,3 +51,7 @@ variable "ARM_RG_NAME" {
 variable "ARM_RG_ID" {
     type = string
 }
+
+variable "SP_ACR_OBJ_ID" {
+    type = string
+}
