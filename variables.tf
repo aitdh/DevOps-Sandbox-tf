@@ -40,10 +40,6 @@ variable "ARM_SUBSCRIPTION_ID" {
     type = string
 }
 
-variable "SP_APPLICATION_ID" {
-    type = string
-}
-
 variable "ARM_RG_NAME" {
     type = string
 }
