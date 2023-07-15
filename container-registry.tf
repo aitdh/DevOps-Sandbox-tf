@@ -2,8 +2,8 @@ resource "azurerm_container_registry" "acr" {
   name                = "dhacrdevopssandbox"
   resource_group_name = var.ARM_RG_NAME
   location            = var.devops_sb_resource_group_location
-  sku                 = "Basic"
-  admin_enabled       = false
+  sku                 = "Premium"
+  admin_enabled       = true
 }
 
 #https://learn.microsoft.com/en-us/azure/role-based-access-control/built-in-roles?WT.mc_id=AZ-MVP-5004151
