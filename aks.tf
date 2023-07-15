@@ -8,7 +8,7 @@ resource "azurerm_kubernetes_cluster" "k8s" {
   private_dns_zone_id     = azurerm_private_dns_zone.aks-private-dns-zone-cmrh.id
 
   depends_on = [
-    azurerm_role_assignment.example,
+    azurerm_role_assignment.aks-role-assignment-cmrh,
   ]
 
   identity {
