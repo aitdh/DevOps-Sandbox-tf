@@ -12,7 +12,7 @@ resource "azurerm_kubernetes_cluster" "k8s" {
   ]
 
   identity {
-    type = "SystemAssigned"
+    type = "UserAssigned"
   }
 
   default_node_pool {
