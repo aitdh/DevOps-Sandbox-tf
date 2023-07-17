@@ -13,6 +13,7 @@ resource "azurerm_kubernetes_cluster" "k8s" {
 
   identity {
     type = "UserAssigned"
+    identity_ids = [azurerm_user_assigned_identity.aks-user-managed-id-cmrh.id]
   }
 
   default_node_pool {
